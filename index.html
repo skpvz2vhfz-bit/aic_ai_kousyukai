@@ -3,374 +3,1508 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>My Website</title>
+  <title>ドラクエみたいなゲーム</title>
   <style>
     :root {
-      --bg: #f6f4ef;
-      --text: #172126;
-      --muted: #5d6a70;
-      --line: #d9d4c8;
-      --panel: #fffdf8;
-      --accent: #087f7b;
-      --accent-dark: #064f4d;
-      --warm: #d98c24;
+      --night: #111827;
+      --sky: #1f3a5f;
+      --grass: #3f8f46;
+      --grass-dark: #27633a;
+      --path: #c9a86a;
+      --water: #2b83b9;
+      --stone: #6d7881;
+      --wood: #8c5b35;
+      --panel: #f4ecd8;
+      --panel-dark: #2c2a33;
+      --ink: #1d2430;
+      --muted: #6b7280;
+      --line: rgba(29, 36, 48, 0.18);
+      --gold: #d8a637;
+      --red: #c24135;
+      --blue: #2b65c8;
+      --green: #237a49;
+      --shadow: rgba(8, 11, 18, 0.35);
     }
 
     * {
       box-sizing: border-box;
     }
 
+    html,
     body {
+      min-height: 100%;
       margin: 0;
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      line-height: 1.6;
-      color: var(--text);
+      color: var(--ink);
       background:
-        linear-gradient(135deg, rgba(8, 127, 123, 0.08), transparent 34%),
-        linear-gradient(315deg, rgba(217, 140, 36, 0.12), transparent 32%),
-        var(--bg);
+        radial-gradient(circle at 18% 12%, rgba(216, 166, 55, 0.18), transparent 28%),
+        linear-gradient(150deg, #0c1220, #1b2b46 54%, #0e171f);
+      font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
     }
 
-    a {
-      color: inherit;
-      text-decoration: none;
+    body {
+      min-height: 100vh;
+      overflow-x: hidden;
     }
 
-    .site-header {
-      position: sticky;
-      top: 0;
-      z-index: 10;
-      border-bottom: 1px solid rgba(23, 33, 38, 0.08);
-      background: rgba(246, 244, 239, 0.88);
-      backdrop-filter: blur(16px);
+    button {
+      font: inherit;
     }
 
-    .nav {
+    .app {
+      display: block;
+      min-height: 100vh;
+    }
+
+    .stage-wrap {
+      display: grid;
+      min-height: 100vh;
+      padding: 18px;
+      perspective: 1200px;
+    }
+
+    .stage {
+      width: min(1320px, 100%);
+      margin: auto;
+      padding: 18px;
+      border: 10px solid #18151c;
+      border-radius: 18px;
+      background:
+        linear-gradient(90deg, rgba(255,255,255,0.05) 1px, transparent 1px),
+        linear-gradient(#2e4565, #19344a);
+      background-size: 18px 18px, auto;
+      box-shadow:
+        inset 0 0 0 3px rgba(255,255,255,0.08),
+        inset 0 0 0 8px rgba(0,0,0,0.18),
+        0 30px 70px rgba(0,0,0,0.36);
+      transform: rotateX(2.5deg);
+      transform-origin: center bottom;
+    }
+
+    .topbar {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      width: min(1080px, calc(100% - 40px));
-      margin: 0 auto;
-      padding: 18px 0;
-    }
-
-    .brand {
-      font-weight: 800;
-      letter-spacing: 0;
-    }
-
-    .nav-links {
-      display: flex;
-      gap: 18px;
-      color: var(--muted);
-      font-size: 0.95rem;
-    }
-
-    .nav-links a:hover {
-      color: var(--accent-dark);
-    }
-
-    main {
-      width: min(1080px, calc(100% - 40px));
-      margin: 0 auto;
-    }
-
-    .hero {
-      display: grid;
-      grid-template-columns: minmax(0, 1.2fr) minmax(280px, 0.8fr);
-      gap: 48px;
-      align-items: center;
-      min-height: calc(100vh - 72px);
-      padding: 72px 0 56px;
-    }
-
-    .eyebrow {
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      margin: 0 0 20px;
-      color: var(--accent-dark);
-      font-size: 0.9rem;
-      font-weight: 700;
-    }
-
-    .eyebrow::before {
-      width: 34px;
-      height: 2px;
-      content: "";
-      background: var(--warm);
-    }
-
-    h1 {
-      max-width: 780px;
-      margin: 0;
-      font-size: clamp(2.5rem, 7vw, 5.6rem);
-      line-height: 0.98;
-      letter-spacing: 0;
-    }
-
-    .lead {
-      max-width: 620px;
-      margin: 28px 0 0;
-      color: var(--muted);
-      font-size: clamp(1.05rem, 2vw, 1.25rem);
-    }
-
-    .actions {
-      display: flex;
-      flex-wrap: wrap;
       gap: 14px;
-      margin-top: 36px;
-    }
-
-    .button {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      min-height: 48px;
-      padding: 0 18px;
-      border: 1px solid var(--accent-dark);
-      border-radius: 6px;
-      font-weight: 700;
-    }
-
-    .button.primary {
+      margin-bottom: 12px;
       color: #fff;
-      background: var(--accent-dark);
     }
 
-    .button.secondary {
-      color: var(--accent-dark);
-      background: transparent;
+    .title {
+      margin: 0;
+      font-size: clamp(1.3rem, 3vw, 2.15rem);
+      line-height: 1;
+      letter-spacing: 0;
+      text-shadow: 0 3px 0 rgba(0,0,0,0.35);
     }
 
-    .visual {
-      position: relative;
-      min-height: 430px;
-      border: 1px solid rgba(23, 33, 38, 0.14);
+    .place {
+      min-width: 158px;
+      padding: 9px 12px;
+      border: 2px solid rgba(255,255,255,0.22);
       border-radius: 8px;
-      overflow: hidden;
       background:
-        radial-gradient(circle at 30% 20%, rgba(255, 255, 255, 0.86), transparent 25%),
-        linear-gradient(145deg, #0a5957 0%, #0f7470 45%, #f0b35a 100%);
-      box-shadow: 0 28px 70px rgba(23, 33, 38, 0.16);
+        linear-gradient(180deg, rgba(255,255,255,0.1), rgba(255,255,255,0)),
+        rgba(0,0,0,0.28);
+      font-weight: 900;
+      text-align: center;
+      box-shadow: 0 4px 0 rgba(0,0,0,0.28);
     }
 
-    .visual::before,
-    .visual::after {
+    .screen {
+      position: relative;
+      display: grid;
+      grid-template-columns: minmax(660px, 1fr) 300px;
+      grid-template-rows: minmax(500px, 64vh) auto;
+      gap: 14px;
+      min-height: 0;
+    }
+
+    .map-panel,
+    .log-panel,
+    .side {
+      border: 1px solid rgba(255,255,255,0.18);
+      border-radius: 10px;
+      background: rgba(244, 236, 216, 0.96);
+      box-shadow: inset 0 0 0 2px rgba(255,255,255,0.28);
+    }
+
+    .map-panel {
+      position: relative;
+      overflow: hidden;
+      min-height: 500px;
+      background:
+        linear-gradient(90deg, rgba(255,255,255,0.08) 1px, transparent 1px),
+        linear-gradient(rgba(255,255,255,0.08) 1px, transparent 1px),
+        var(--grass);
+      background-size: 44px 44px;
+    }
+
+    .map-panel::after {
+      position: absolute;
+      inset: 0;
+      content: "";
+      border-radius: inherit;
+      pointer-events: none;
+      box-shadow:
+        inset 0 0 34px rgba(0,0,0,0.28),
+        inset 0 0 0 3px rgba(255,255,255,0.16);
+      z-index: 3;
+    }
+
+    .map {
+      position: absolute;
+      inset: 0;
+      display: grid;
+      grid-template-columns: repeat(13, 1fr);
+      grid-template-rows: repeat(13, 1fr);
+    }
+
+    .cell {
+      position: relative;
+      display: grid;
+      place-items: center;
+      min-width: 0;
+      min-height: 0;
+      border: 1px solid rgba(0,0,0,0.045);
+      overflow: hidden;
+    }
+
+    .cell::before,
+    .cell::after {
       position: absolute;
       content: "";
-      inset: 34px;
-      border: 1px solid rgba(255, 255, 255, 0.42);
-      border-radius: 8px;
+      pointer-events: none;
     }
 
-    .visual::after {
-      inset: auto 32px 32px auto;
-      width: 150px;
-      height: 150px;
-      border: 0;
-      background: rgba(255, 253, 248, 0.9);
-      clip-path: polygon(50% 0, 100% 50%, 50% 100%, 0 50%);
+    .cell.grass {
+      background:
+        radial-gradient(circle at 28% 26%, rgba(255,255,255,0.16), transparent 22%),
+        linear-gradient(145deg, #51a654, var(--grass-dark));
     }
 
-    .visual-text {
-      position: absolute;
-      left: 34px;
-      right: 34px;
-      bottom: 34px;
-      color: #fff;
+    .cell.grass::before {
+      inset: 8px auto auto 9px;
+      width: 4px;
+      height: 14px;
+      border-radius: 999px;
+      background: rgba(219, 235, 142, 0.42);
+      box-shadow: 13px 15px rgba(219, 235, 142, 0.24), 24px 5px rgba(255,255,255,0.16);
+      transform: rotate(22deg);
     }
 
-    .visual-text strong {
+    .cell.forest {
+      background: linear-gradient(145deg, #245c36, #143f2c);
+    }
+
+    .cell.forest::before {
+      width: 34px;
+      height: 30px;
+      border-radius: 50% 50% 44% 44%;
+      background:
+        radial-gradient(circle at 32% 38%, #4da85d 0 18%, transparent 19%),
+        radial-gradient(circle at 66% 36%, #3f9652 0 20%, transparent 21%),
+        radial-gradient(circle at 50% 20%, #5ab867 0 22%, transparent 23%),
+        linear-gradient(#2c7d42, #15512d);
+      filter: drop-shadow(0 6px 0 rgba(0,0,0,0.2));
+    }
+
+    .cell.forest::after {
+      bottom: 7px;
+      width: 7px;
+      height: 13px;
+      border-radius: 2px;
+      background: #7a4e2d;
+    }
+
+    .cell.path {
+      background:
+        radial-gradient(circle at 20% 30%, rgba(120, 83, 40, 0.14), transparent 10%),
+        radial-gradient(circle at 74% 64%, rgba(120, 83, 40, 0.13), transparent 12%),
+        linear-gradient(145deg, #e2c47d, var(--path));
+    }
+
+    .cell.water {
+      background:
+        repeating-linear-gradient(160deg, rgba(255,255,255,0.16) 0 3px, transparent 3px 13px),
+        radial-gradient(circle at 30% 30%, rgba(255,255,255,0.24), transparent 20%),
+        linear-gradient(145deg, #4aa6d2, var(--water));
+    }
+
+    .cell.mountain {
+      background: linear-gradient(145deg, #808b92, #49525a);
+    }
+
+    .cell.mountain::before {
+      bottom: 8px;
+      width: 0;
+      height: 0;
+      border-right: 18px solid transparent;
+      border-bottom: 32px solid #384149;
+      border-left: 18px solid transparent;
+      filter: drop-shadow(0 5px 0 rgba(0,0,0,0.18));
+    }
+
+    .cell.mountain::after {
+      bottom: 25px;
+      width: 0;
+      height: 0;
+      border-right: 7px solid transparent;
+      border-bottom: 12px solid #d7dde1;
+      border-left: 7px solid transparent;
+    }
+
+    .cell.town {
+      background: linear-gradient(145deg, #d8b36d, #a9733d);
+    }
+
+    .cell.castle {
+      background: linear-gradient(145deg, #d9dde1, var(--stone));
+    }
+
+    .cell.cave {
+      background: linear-gradient(145deg, #433c3c, #181818);
+    }
+
+    .sprite {
+      position: relative;
+      z-index: 2;
+      width: 34px;
+      height: 40px;
+      filter: drop-shadow(0 8px 0 rgba(0,0,0,0.24));
+    }
+
+    .hero-sprite {
       display: block;
-      font-size: 3.8rem;
+    }
+
+    .hero-sprite .head {
+      position: absolute;
+      top: 2px;
+      left: 9px;
+      width: 16px;
+      height: 14px;
+      border: 2px solid #172033;
+      border-radius: 50% 50% 42% 42%;
+      background: #f1c99d;
+      box-shadow: inset 3px 2px rgba(255,255,255,0.45);
+    }
+
+    .hero-sprite .hair {
+      position: absolute;
+      top: -1px;
+      left: 7px;
+      width: 20px;
+      height: 11px;
+      border-radius: 8px 8px 4px 4px;
+      background: #4b2b1e;
+      z-index: 2;
+    }
+
+    .hero-sprite .body {
+      position: absolute;
+      top: 15px;
+      left: 6px;
+      width: 22px;
+      height: 19px;
+      border: 2px solid #172033;
+      border-radius: 7px 7px 5px 5px;
+      background: linear-gradient(145deg, #2b65c8, #143b86);
+      box-shadow: inset 4px 3px rgba(255,255,255,0.18);
+    }
+
+    .hero-sprite .cape {
+      position: absolute;
+      top: 16px;
+      left: 3px;
+      width: 28px;
+      height: 22px;
+      border-radius: 7px 7px 12px 12px;
+      background: #b82f2a;
+      z-index: -1;
+    }
+
+    .hero-sprite .legs {
+      position: absolute;
+      bottom: 0;
+      left: 8px;
+      width: 18px;
+      height: 9px;
+      background:
+        linear-gradient(90deg, #172033 0 7px, transparent 7px 11px, #172033 11px);
+    }
+
+    .marker {
+      position: relative;
+      z-index: 2;
+      width: 40px;
+      height: 38px;
+      filter: drop-shadow(0 7px 0 rgba(0,0,0,0.22));
+    }
+
+    .marker.town::before {
+      position: absolute;
+      left: 5px;
+      bottom: 2px;
+      width: 30px;
+      height: 21px;
+      content: "";
+      border: 2px solid #3b2617;
+      border-radius: 4px;
+      background: linear-gradient(145deg, #dca461, #9c5a2f);
+    }
+
+    .marker.town::after {
+      position: absolute;
+      top: 3px;
+      left: 2px;
+      width: 36px;
+      height: 18px;
+      content: "";
+      clip-path: polygon(50% 0, 100% 100%, 0 100%);
+      background: linear-gradient(145deg, #c43a32, #82221d);
+    }
+
+    .marker.castle::before {
+      position: absolute;
+      left: 4px;
+      bottom: 2px;
+      width: 32px;
+      height: 27px;
+      content: "";
+      border: 2px solid #323946;
+      border-radius: 4px 4px 3px 3px;
+      background:
+        linear-gradient(90deg, transparent 0 7px, rgba(0,0,0,0.12) 7px 9px, transparent 9px 21px, rgba(0,0,0,0.12) 21px 23px, transparent 23px),
+        linear-gradient(#dfe5e8, #87919b);
+    }
+
+    .marker.castle::after {
+      position: absolute;
+      top: 2px;
+      left: 7px;
+      width: 26px;
+      height: 13px;
+      content: "";
+      background:
+        linear-gradient(90deg, #323946 0 5px, transparent 5px 10px, #323946 10px 16px, transparent 16px 21px, #323946 21px);
+    }
+
+    .marker.cave::before {
+      position: absolute;
+      inset: 5px 3px 2px;
+      content: "";
+      border-radius: 18px 18px 7px 7px;
+      background: linear-gradient(145deg, #5f5555, #201b1b);
+    }
+
+    .marker.cave::after {
+      position: absolute;
+      left: 12px;
+      bottom: 2px;
+      width: 16px;
+      height: 20px;
+      content: "";
+      border-radius: 14px 14px 3px 3px;
+      background: radial-gradient(circle at 50% 85%, #27384d, #08090b 64%);
+    }
+
+    .battle-overlay {
+      position: absolute;
+      inset: 0;
+      display: none;
+      place-items: center;
+      padding: 24px;
+      background:
+        radial-gradient(circle at 50% 28%, rgba(216, 166, 55, 0.18), transparent 28%),
+        rgba(9, 12, 18, 0.76);
+      backdrop-filter: blur(4px);
+      z-index: 10;
+    }
+
+    .battle-overlay.visible {
+      display: grid;
+    }
+
+    .battle-card {
+      width: min(560px, 100%);
+      padding: 18px;
+      border: 4px solid #111827;
+      border-radius: 12px;
+      background:
+        linear-gradient(180deg, rgba(255,255,255,0.65), rgba(255,255,255,0)),
+        var(--panel);
+      box-shadow:
+        inset 0 0 0 3px rgba(255,255,255,0.4),
+        0 24px 60px rgba(0,0,0,0.38);
+    }
+
+    .monster {
+      display: grid;
+      place-items: center;
+      min-height: 174px;
+      margin-bottom: 14px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background:
+        linear-gradient(0deg, rgba(67, 49, 31, 0.18), transparent 38%),
+        radial-gradient(circle at 50% 60%, rgba(35,122,73,0.18), transparent 42%),
+        #fff8e8;
+      box-shadow: inset 0 0 32px rgba(48, 38, 22, 0.12);
+    }
+
+    @keyframes monsterFloat {
+      0%, 100% { transform: translateY(0) scale(1); }
+      50% { transform: translateY(-7px) scale(1.02); }
+    }
+
+    .monster-art {
+      position: relative;
+      width: 164px;
+      height: 140px;
+      animation: monsterFloat 1.7s ease-in-out infinite;
+      filter: drop-shadow(0 14px 0 rgba(0,0,0,0.18));
+    }
+
+    .monster-art i,
+    .monster-art b,
+    .monster-art span {
+      position: absolute;
+      display: block;
+    }
+
+    .monster-art.slime .body {
+      left: 19px;
+      bottom: 16px;
+      width: 126px;
+      height: 96px;
+      border: 3px solid #102238;
+      border-radius: 54% 48% 46% 50%;
+      background:
+        radial-gradient(circle at 34% 25%, rgba(255,255,255,0.78), transparent 14%),
+        linear-gradient(145deg, #7be0f0, #2b83b9 70%);
+      box-shadow: inset 12px 14px rgba(255,255,255,0.2), inset -16px -18px rgba(0,0,0,0.16);
+    }
+
+    .monster-art.slime .eye {
+      top: 64px;
+      width: 13px;
+      height: 15px;
+      border-radius: 50%;
+      background: #101827;
+      box-shadow: inset 3px 3px rgba(255,255,255,0.5);
+    }
+
+    .monster-art.slime .eye.left { left: 59px; }
+    .monster-art.slime .eye.right { right: 59px; }
+
+    .monster-art.slime .mouth {
+      left: 68px;
+      bottom: 45px;
+      width: 28px;
+      height: 13px;
+      border-bottom: 4px solid #102238;
+      border-radius: 0 0 30px 30px;
+    }
+
+    .monster-art.slime .shine {
+      left: 51px;
+      top: 38px;
+      width: 24px;
+      height: 13px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.55);
+      transform: rotate(-28deg);
+    }
+
+    .monster-art.bat .wing {
+      top: 46px;
+      width: 66px;
+      height: 58px;
+      background: linear-gradient(145deg, #4a2b79, #1e1635);
+      clip-path: polygon(0 10%, 38% 0, 70% 40%, 100% 16%, 82% 100%, 50% 70%, 18% 100%);
+      border-radius: 12px;
+    }
+
+    .monster-art.bat .wing.left {
+      left: 2px;
+      transform: rotate(-12deg);
+    }
+
+    .monster-art.bat .wing.right {
+      right: 2px;
+      transform: scaleX(-1) rotate(-12deg);
+    }
+
+    .monster-art.bat .body {
+      left: 54px;
+      top: 34px;
+      width: 56px;
+      height: 74px;
+      border: 3px solid #111827;
+      border-radius: 48% 48% 55% 55%;
+      background: linear-gradient(145deg, #6f4aac, #2c214a);
+      box-shadow: inset 8px 10px rgba(255,255,255,0.14), inset -9px -12px rgba(0,0,0,0.2);
+    }
+
+    .monster-art.bat .ear {
+      top: 18px;
+      width: 0;
+      height: 0;
+      border-right: 10px solid transparent;
+      border-bottom: 23px solid #2c214a;
+      border-left: 10px solid transparent;
+    }
+
+    .monster-art.bat .ear.left { left: 57px; transform: rotate(-20deg); }
+    .monster-art.bat .ear.right { right: 57px; transform: rotate(20deg); }
+
+    .monster-art.bat .eye {
+      top: 57px;
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      background: #ffd457;
+      box-shadow: 0 0 10px rgba(255,212,87,0.75);
+    }
+
+    .monster-art.bat .eye.left { left: 69px; }
+    .monster-art.bat .eye.right { right: 69px; }
+
+    .monster-art.golem .rock {
+      border: 3px solid #232a31;
+      background:
+        linear-gradient(145deg, rgba(255,255,255,0.18), transparent 36%),
+        linear-gradient(145deg, #9aa3a8, #55606a);
+      box-shadow: inset -8px -9px rgba(0,0,0,0.16), 0 5px 0 rgba(0,0,0,0.18);
+    }
+
+    .monster-art.golem .head {
+      left: 54px;
+      top: 16px;
+      width: 58px;
+      height: 44px;
+      border-radius: 12px 14px 10px 12px;
+    }
+
+    .monster-art.golem .torso {
+      left: 43px;
+      top: 60px;
+      width: 80px;
+      height: 56px;
+      border-radius: 14px 10px 16px 13px;
+    }
+
+    .monster-art.golem .arm {
+      top: 66px;
+      width: 34px;
+      height: 44px;
+      border-radius: 12px;
+    }
+
+    .monster-art.golem .arm.left { left: 13px; transform: rotate(13deg); }
+    .monster-art.golem .arm.right { right: 13px; transform: rotate(-13deg); }
+
+    .monster-art.golem .leg {
+      bottom: 4px;
+      width: 32px;
+      height: 30px;
+      border-radius: 10px;
+    }
+
+    .monster-art.golem .leg.left { left: 49px; }
+    .monster-art.golem .leg.right { right: 49px; }
+
+    .monster-art.golem .eye {
+      top: 34px;
+      width: 9px;
+      height: 8px;
+      border-radius: 50%;
+      background: #63e6be;
+      box-shadow: 0 0 9px rgba(99,230,190,0.8);
+      z-index: 2;
+    }
+
+    .monster-art.golem .eye.left { left: 69px; }
+    .monster-art.golem .eye.right { right: 69px; }
+
+    .enemy-name {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin: 0 0 10px;
+      padding: 7px 10px;
+      border: 2px solid #111827;
+      border-radius: 8px;
+      background: #fffaf0;
+      font-size: 1.25rem;
+      box-shadow: 0 4px 0 #111827;
+    }
+
+    .enemy-name::before {
+      width: 10px;
+      height: 10px;
+      content: "";
+      border-radius: 50%;
+      background: var(--red);
+      box-shadow: 14px 0 var(--gold);
+    }
+
+    .bars {
+      display: grid;
+      gap: 6px;
+      margin-bottom: 12px;
+    }
+
+    .bar {
+      height: 12px;
+      border: 1px solid rgba(0,0,0,0.18);
+      border-radius: 999px;
+      overflow: hidden;
+      background: #bdb29f;
+      box-shadow: inset 0 2px 4px rgba(0,0,0,0.22);
+    }
+
+    .bar span {
+      display: block;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, var(--green), #62b45f);
+      box-shadow: inset 0 2px rgba(255,255,255,0.28);
+      transition: width 180ms ease;
+    }
+
+    .battle-actions,
+    .commands {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+    }
+
+    .battle-actions {
+      display: none;
+    }
+
+    .battle-actions button,
+    .commands button {
+      min-height: 44px;
+      border: 2px solid #111827;
+      border-radius: 7px;
+      background:
+        linear-gradient(180deg, rgba(255,255,255,0.78), rgba(255,255,255,0)),
+        #fffaf0;
+      color: var(--ink);
+      font-weight: 950;
+      cursor: pointer;
+      box-shadow: 0 4px 0 #111827;
+      transition: transform 90ms ease, box-shadow 90ms ease, filter 120ms ease;
+    }
+
+    .battle-actions button:hover,
+    .commands button:hover {
+      filter: brightness(1.04) saturate(1.06);
+    }
+
+    .battle-actions button:active,
+    .commands button:active {
+      transform: translateY(3px);
+      box-shadow: 0 1px 0 #111827;
+    }
+
+    .side-column {
+      display: grid;
+      grid-template-rows: auto 1fr;
+      gap: 12px;
+      min-height: 500px;
+    }
+
+    .stats,
+    .bag,
+    .log-panel {
+      padding: 12px;
+    }
+
+    .stats h2,
+    .bag h2,
+    .log-panel h2 {
+      margin: 0 0 10px;
+      font-size: 0.82rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .stat-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+    }
+
+    .stat {
+      padding: 9px;
+      border: 1px solid var(--line);
+      border-radius: 7px;
+      background:
+        linear-gradient(180deg, rgba(255,255,255,0.7), rgba(255,255,255,0)),
+        #fffaf0;
+      box-shadow: inset 0 0 0 1px rgba(255,255,255,0.62), 0 3px 0 rgba(17,24,39,0.12);
+    }
+
+    .stat span {
+      display: block;
+      color: var(--muted);
+      font-size: 0.72rem;
+      font-weight: 900;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .stat strong {
+      display: block;
+      margin-top: 3px;
+      font-size: 1.25rem;
       line-height: 1;
     }
 
-    .visual-text span {
-      display: block;
-      margin-top: 12px;
-      font-weight: 700;
+    .log-panel {
+      overflow: auto;
+      min-height: 220px;
+      color: #fff;
+      background:
+        linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px),
+        linear-gradient(var(--panel-dark), #171722);
+      background-size: 14px 14px, auto;
     }
 
-    .section {
-      padding: 64px 0;
-      border-top: 1px solid var(--line);
-    }
-
-    .section-title {
-      margin: 0 0 24px;
-      font-size: clamp(1.7rem, 3vw, 2.4rem);
-      line-height: 1.2;
-    }
-
-    .about-grid {
+    .log {
       display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 24px;
-    }
-
-    .panel {
-      padding: 26px;
-      border: 1px solid var(--line);
-      border-radius: 8px;
-      background: rgba(255, 253, 248, 0.72);
-    }
-
-    .panel h3 {
-      margin: 0 0 10px;
-      font-size: 1.1rem;
-    }
-
-    .panel p {
-      margin: 0;
-      color: var(--muted);
-    }
-
-    .work-list {
-      display: grid;
-      gap: 14px;
+      gap: 7px;
       margin: 0;
       padding: 0;
       list-style: none;
+      font-size: 0.92rem;
+      line-height: 1.45;
     }
 
-    .work-list a {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 20px;
-      padding: 22px 0;
-      border-bottom: 1px solid var(--line);
+    .log li {
+      padding-bottom: 7px;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
     }
 
-    .work-list strong {
-      font-size: 1.1rem;
+    .commands {
+      grid-column: 1 / -1;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 360px;
+      gap: 14px;
+      padding: 12px;
+      border: 1px solid rgba(255,255,255,0.18);
+      border-radius: 10px;
+      background: rgba(244, 236, 216, 0.96);
+      box-shadow: inset 0 0 0 2px rgba(255,255,255,0.28);
     }
 
-    .work-list span {
-      color: var(--muted);
+    .message {
+      min-height: 92px;
+      padding: 14px;
+      border: 2px solid #111827;
+      border-radius: 8px;
+      background:
+        linear-gradient(180deg, rgba(255,255,255,0.72), rgba(255,255,255,0)),
+        #fffaf0;
+      line-height: 1.55;
+      box-shadow: 0 5px 0 #111827;
     }
 
-    footer {
-      width: min(1080px, calc(100% - 40px));
-      margin: 0 auto;
-      padding: 32px 0 48px;
-      color: var(--muted);
-      border-top: 1px solid var(--line);
-      font-size: 0.95rem;
+    .message::first-letter {
+      font-weight: 950;
+    }
+
+    .command-box {
+      display: grid;
+      grid-template-rows: auto 1fr;
+      gap: 10px;
+    }
+
+    .command-form {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 92px;
+      gap: 8px;
+    }
+
+    .command-input {
+      min-height: 46px;
+      width: 100%;
+      padding: 0 12px;
+      border: 2px solid #111827;
+      border-radius: 7px;
+      background: #fffaf0;
+      color: var(--ink);
+      font: inherit;
+      font-weight: 900;
+      box-shadow: inset 0 2px 0 rgba(0,0,0,0.1), 0 4px 0 #111827;
+    }
+
+    .command-input:focus {
+      outline: 3px solid rgba(216, 166, 55, 0.5);
+      outline-offset: 2px;
+    }
+
+    .command-submit {
+      min-height: 46px;
+      border: 2px solid #111827;
+      border-radius: 7px;
+      background:
+        linear-gradient(180deg, rgba(255,255,255,0.78), rgba(255,255,255,0)),
+        #fffaf0;
+      color: var(--ink);
+      font-weight: 950;
+      cursor: pointer;
+      box-shadow: 0 4px 0 #111827;
+    }
+
+    .command-help {
+      min-height: 46px;
+      padding: 9px 10px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #fffaf0;
+      color: #374151;
+      font-size: 0.92rem;
+      line-height: 1.45;
+    }
+
+    @media (max-width: 1040px) {
+      .stage-wrap {
+        min-height: auto;
+        padding: 14px;
+      }
+
+      .stage {
+        transform: none;
+      }
     }
 
     @media (max-width: 760px) {
-      .nav {
-        align-items: flex-start;
-        flex-direction: column;
-        gap: 12px;
-      }
-
-      .hero,
-      .about-grid {
+      .screen {
         grid-template-columns: 1fr;
+        grid-template-rows: auto;
       }
 
-      .hero {
+      .map-panel,
+      .side-column {
         min-height: auto;
-        padding-top: 48px;
       }
 
-      .visual {
-        min-height: 320px;
+      .map-panel {
+        aspect-ratio: 1;
       }
 
-      .visual-text strong {
-        font-size: 3rem;
-      }
-
-      .work-list a {
-        align-items: flex-start;
-        flex-direction: column;
-        gap: 6px;
+      .commands {
+        grid-template-columns: 1fr;
       }
     }
   </style>
 </head>
 <body>
-  <header class="site-header">
-    <nav class="nav" aria-label="メインナビゲーション">
-      <a class="brand" href="#">私のwebサイト</a>
-      <div class="nav-links">
-        <a href="#about">About</a>
-        <a href="#works">Works</a>
-        <a href="#contact">Contact</a>
-      </div>
-    </nav>
-  </header>
+  <div class="app">
+    <main class="stage-wrap">
+      <section class="stage" aria-label="冒険画面">
+        <header class="topbar">
+          <h1 class="title">星かける勇者</h1>
+          <div class="place" id="placeName">はじまりの村</div>
+        </header>
 
-  <main>
-    <section class="hero">
-      <div>
-        <p class="eyebrow">Personal Website</p>
-        <h1>つくることを、少しずつ形に。</h1>
-        <p class="lead">
-          学んだこと、試したこと、これから作りたいものをまとめるためのWebサイトです。
-          GitHub Pagesで公開しながら、少しずつ育てていきます。
-        </p>
-        <div class="actions">
-          <a class="button primary" href="#works">制作物を見る</a>
-          <a class="button secondary" href="#about">自己紹介へ</a>
+        <div class="screen">
+          <section class="map-panel">
+            <div class="map" id="map"></div>
+            <div class="battle-overlay" id="battleOverlay">
+              <section class="battle-card">
+                <h2 class="enemy-name" id="enemyName">まもの</h2>
+                <div class="monster">
+                  <div class="monster-art slime" id="monsterFace"></div>
+                </div>
+                <div class="bars">
+                  <div class="bar"><span id="enemyHpBar"></span></div>
+                </div>
+                <div class="battle-actions">
+                  <button id="attackBtn" type="button">たたかう</button>
+                  <button id="spellBtn" type="button">じゅもん</button>
+                  <button id="itemBtn" type="button">やくそう</button>
+                  <button id="runBtn" type="button">にげる</button>
+                </div>
+              </section>
+            </div>
+          </section>
+
+          <aside class="side-column">
+            <section class="map-panel stats">
+              <h2>Status</h2>
+              <div class="stat-grid">
+                <div class="stat"><span>Lv</span><strong id="lv">1</strong></div>
+                <div class="stat"><span>Gold</span><strong id="gold">0</strong></div>
+                <div class="stat"><span>HP</span><strong id="hp">24/24</strong></div>
+                <div class="stat"><span>MP</span><strong id="mp">8/8</strong></div>
+                <div class="stat"><span>EXP</span><strong id="exp">0</strong></div>
+                <div class="stat"><span>Herb</span><strong id="herbs">2</strong></div>
+              </div>
+            </section>
+
+            <section class="log-panel">
+              <h2>Log</h2>
+              <ul class="log" id="log"></ul>
+            </section>
+          </aside>
+
+          <section class="commands" aria-label="コマンド入力">
+            <div class="message" id="message">王様から星のかけらを探す旅を頼まれた。村の外へ出て冒険を始めよう。</div>
+            <div class="command-box">
+              <form class="command-form" id="commandForm">
+                <input class="command-input" id="commandInput" type="text" autocomplete="off" placeholder="例: 北 / 話す / 攻撃">
+                <button class="command-submit" type="submit">入力</button>
+              </form>
+              <div class="command-help">移動: 矢印/WASD/北南東西。通常: T 話す、X 調べる、R 休む。戦闘: A 攻撃、M 呪文、H 薬草、F 逃げる。</div>
+            </div>
+          </section>
         </div>
-      </div>
+      </section>
+    </main>
+  </div>
 
-      <div class="visual" aria-label="サイトのキービジュアル">
-        <div class="visual-text">
-          <strong>01</strong>
-          <span>Learning / Building / Publishing</span>
-        </div>
-      </div>
-    </section>
+  <script>
+    const SIZE = 13;
+    const tileMap = [
+      "mmmmmmmmmmmmm",
+      "mfffgggfffccm",
+      "mffggpggffccm",
+      "mgggpppgggggm",
+      "mggpTTTppgggm",
+      "mggpTTTppffgm",
+      "mggpppppfffgm",
+      "mwwwwpwwwwfgm",
+      "mggggpggggfgm",
+      "mggffpffggggm",
+      "mggffpffggCgm",
+      "mggggpggggggm",
+      "mmmmmmmmmmmmm"
+    ];
 
-    <section id="about" class="section">
-      <h2 class="section-title">About</h2>
-      <div class="about-grid">
-        <article class="panel">
-          <h3>このサイトについて</h3>
-          <p>自己紹介、学習メモ、制作物へのリンクを置くためのホームページです。</p>
-        </article>
-        <article class="panel">
-          <h3>これから追加するもの</h3>
-          <p>プロフィール、SNSリンク、プロジェクト紹介、日々の学習記録などを追加できます。</p>
-        </article>
-      </div>
-    </section>
+    const tileTypes = {
+      g: "grass",
+      f: "forest",
+      p: "path",
+      w: "water",
+      m: "mountain",
+      T: "town",
+      c: "castle",
+      C: "cave"
+    };
 
-    <section id="works" class="section">
-      <h2 class="section-title">Works</h2>
-      <ul class="work-list">
-        <li>
-          <a href="#">
-            <strong>Portfolio</strong>
-            <span>制作物をまとめるページ</span>
-          </a>
-        </li>
-        <li>
-          <a href="#">
-            <strong>Learning Notes</strong>
-            <span>学んだことのメモ</span>
-          </a>
-        </li>
-        <li>
-          <a href="#">
-            <strong>GitHub Projects</strong>
-            <span>公開しているコード</span>
-          </a>
-        </li>
-      </ul>
-    </section>
-  </main>
+    const landmarks = {
+      "5,4": { type: "town", icon: "家", name: "はじまりの村", message: "旅人たちが集まる小さな村だ。" },
+      "10,2": { type: "castle", icon: "城", name: "白銀の城", message: "王様が星のかけらの伝説を語ってくれる。" },
+      "10,10": { type: "cave", icon: "洞", name: "星影の洞窟", message: "洞窟の奥から青白い光がもれている。" }
+    };
 
-  <footer id="contact">
-    <p>© 2026 私のwebサイト</p>
-  </footer>
+    const enemies = [
+      { name: "ぷるぷるスライム", kind: "slime", hp: 14, atk: 4, exp: 6, gold: 5 },
+      { name: "やみコウモリ", kind: "bat", hp: 18, atk: 5, exp: 8, gold: 8 },
+      { name: "石ころゴーレム", kind: "golem", hp: 26, atk: 7, exp: 14, gold: 14 }
+    ];
+
+    const state = {
+      hero: { x: 5, y: 5, lv: 1, hp: 24, maxHp: 24, mp: 8, maxMp: 8, atk: 7, exp: 0, next: 18, gold: 20, herbs: 2 },
+      enemy: null,
+      inBattle: false,
+      hasShard: false,
+      logs: []
+    };
+
+    const els = {
+      map: document.querySelector("#map"),
+      placeName: document.querySelector("#placeName"),
+      message: document.querySelector("#message"),
+      battleOverlay: document.querySelector("#battleOverlay"),
+      enemyName: document.querySelector("#enemyName"),
+      monsterFace: document.querySelector("#monsterFace"),
+      enemyHpBar: document.querySelector("#enemyHpBar"),
+      lv: document.querySelector("#lv"),
+      gold: document.querySelector("#gold"),
+      hp: document.querySelector("#hp"),
+      mp: document.querySelector("#mp"),
+      exp: document.querySelector("#exp"),
+      herbs: document.querySelector("#herbs"),
+      log: document.querySelector("#log"),
+      commandForm: document.querySelector("#commandForm"),
+      commandInput: document.querySelector("#commandInput")
+    };
+
+    document.querySelector("#attackBtn").addEventListener("click", attack);
+    document.querySelector("#spellBtn").addEventListener("click", castSpell);
+    document.querySelector("#itemBtn").addEventListener("click", useHerb);
+    document.querySelector("#runBtn").addEventListener("click", runAway);
+    els.commandForm.addEventListener("submit", (event) => {
+      event.preventDefault();
+      runCommand(els.commandInput.value);
+      els.commandInput.value = "";
+      els.commandInput.focus();
+    });
+
+    window.addEventListener("keydown", (event) => {
+      if (event.key === "/" && document.activeElement !== els.commandInput) {
+        event.preventDefault();
+        els.commandInput.focus();
+        return;
+      }
+      if (document.activeElement === els.commandInput) return;
+
+      const command = shortcutCommand(event);
+      if (command) {
+        event.preventDefault();
+        runCommand(command, false);
+      }
+    });
+
+    function shortcutCommand(event) {
+      const key = event.key.toLowerCase();
+      const fieldKeys = {
+        arrowup: "north",
+        w: "north",
+        arrowdown: "south",
+        s: "south",
+        arrowright: "east",
+        d: "east",
+        arrowleft: "west",
+        a: "west",
+        t: "talk",
+        x: "search",
+        r: "rest",
+        "?": "help"
+      };
+      const battleKeys = {
+        a: "attack",
+        m: "spell",
+        h: "herb",
+        f: "run",
+        r: "run",
+        "?": "help"
+      };
+      return state.inBattle ? battleKeys[key] : fieldKeys[key];
+    }
+
+    function runCommand(raw, echo = true) {
+      const command = normalizeCommand(raw);
+      if (!command) return;
+      if (echo) log(`> ${raw}`);
+
+      const commands = {
+        north: () => move("up"),
+        south: () => move("down"),
+        east: () => move("right"),
+        west: () => move("left"),
+        talk,
+        search,
+        rest,
+        restart,
+        attack,
+        spell: castSpell,
+        herb: useHerb,
+        run: runAway,
+        help: showCommandHelp
+      };
+
+      if (!commands[command]) {
+        setMessage("そのコマンドは使えない。例: 北、話す、調べる、攻撃");
+        return;
+      }
+      commands[command]();
+    }
+
+    function normalizeCommand(raw) {
+      const value = raw.trim().toLowerCase().replace(/\s+/g, "");
+      const aliases = {
+        "北": "north",
+        "上": "north",
+        "きた": "north",
+        "north": "north",
+        "n": "north",
+        "南": "south",
+        "下": "south",
+        "みなみ": "south",
+        "south": "south",
+        "s": "south",
+        "東": "east",
+        "右": "east",
+        "ひがし": "east",
+        "east": "east",
+        "e": "east",
+        "西": "west",
+        "左": "west",
+        "にし": "west",
+        "west": "west",
+        "w": "west",
+        "話す": "talk",
+        "はなす": "talk",
+        "talk": "talk",
+        "調べる": "search",
+        "しらべる": "search",
+        "探す": "search",
+        "search": "search",
+        "休む": "rest",
+        "やすむ": "rest",
+        "宿": "rest",
+        "rest": "rest",
+        "はじめから": "restart",
+        "リセット": "restart",
+        "restart": "restart",
+        "攻撃": "attack",
+        "たたかう": "attack",
+        "attack": "attack",
+        "a": "attack",
+        "呪文": "spell",
+        "じゅもん": "spell",
+        "魔法": "spell",
+        "spell": "spell",
+        "薬草": "herb",
+        "やくそう": "herb",
+        "item": "herb",
+        "逃げる": "run",
+        "にげる": "run",
+        "run": "run",
+        "help": "help",
+        "ヘルプ": "help",
+        "?": "help"
+      };
+      return aliases[value] || "";
+    }
+
+    function showCommandHelp() {
+      setMessage("使えるコマンド: 北 南 東 西 / 話す / 調べる / 休む / 攻撃 / 呪文 / 薬草 / 逃げる / はじめから");
+    }
+
+    function restart() {
+      Object.assign(state.hero, { x: 5, y: 5, lv: 1, hp: 24, maxHp: 24, mp: 8, maxMp: 8, atk: 7, exp: 0, next: 18, gold: 20, herbs: 2 });
+      state.enemy = null;
+      state.inBattle = false;
+      state.hasShard = false;
+      state.logs = [];
+      log("新しい冒険が始まった。");
+      setMessage("王様から星のかけらを探す旅を頼まれた。村の外へ出て冒険を始めよう。");
+      render();
+    }
+
+    function render() {
+      renderMap();
+      renderStats();
+      renderBattle();
+      renderLog();
+      updatePlace();
+    }
+
+    function renderMap() {
+      els.map.innerHTML = "";
+      for (let y = 0; y < SIZE; y += 1) {
+        for (let x = 0; x < SIZE; x += 1) {
+          const key = `${x},${y}`;
+          const cell = document.createElement("div");
+          const type = tileTypes[tileMap[y][x]];
+          cell.className = `cell ${type}`;
+          if (landmarks[key]) {
+            const marker = document.createElement("div");
+            marker.className = `marker ${landmarks[key].type}`;
+            marker.setAttribute("aria-label", landmarks[key].name);
+            cell.append(marker);
+          }
+          if (state.hero.x === x && state.hero.y === y) {
+            const hero = document.createElement("div");
+            hero.className = "sprite hero-sprite";
+            hero.innerHTML = "<i class=\"cape\"></i><i class=\"hair\"></i><i class=\"head\"></i><i class=\"body\"></i><i class=\"legs\"></i>";
+            hero.setAttribute("aria-label", "勇者");
+            cell.append(hero);
+          }
+          els.map.append(cell);
+        }
+      }
+    }
+
+    function renderStats() {
+      const h = state.hero;
+      els.lv.textContent = h.lv;
+      els.gold.textContent = h.gold;
+      els.hp.textContent = `${h.hp}/${h.maxHp}`;
+      els.mp.textContent = `${h.mp}/${h.maxMp}`;
+      els.exp.textContent = `${h.exp}/${h.next}`;
+      els.herbs.textContent = h.herbs;
+    }
+
+    function renderBattle() {
+      els.battleOverlay.classList.toggle("visible", state.inBattle);
+      if (!state.enemy) return;
+      els.enemyName.textContent = state.enemy.name;
+      els.monsterFace.className = `monster-art ${state.enemy.kind}`;
+      els.monsterFace.innerHTML = monsterHtml(state.enemy.kind);
+      els.enemyHpBar.style.width = `${Math.max(0, state.enemy.hp / state.enemy.maxHp) * 100}%`;
+    }
+
+    function monsterHtml(kind) {
+      const art = {
+        slime: `
+          <i class="body"></i>
+          <i class="shine"></i>
+          <i class="eye left"></i>
+          <i class="eye right"></i>
+          <i class="mouth"></i>
+        `,
+        bat: `
+          <i class="wing left"></i>
+          <i class="wing right"></i>
+          <i class="ear left"></i>
+          <i class="ear right"></i>
+          <i class="body"></i>
+          <i class="eye left"></i>
+          <i class="eye right"></i>
+        `,
+        golem: `
+          <i class="rock arm left"></i>
+          <i class="rock arm right"></i>
+          <i class="rock leg left"></i>
+          <i class="rock leg right"></i>
+          <i class="rock torso"></i>
+          <i class="rock head"></i>
+          <i class="eye left"></i>
+          <i class="eye right"></i>
+        `
+      };
+      return art[kind] || art.slime;
+    }
+
+    function renderLog() {
+      els.log.innerHTML = state.logs.slice(-9).map((entry) => `<li>${entry}</li>`).join("");
+    }
+
+    function updatePlace() {
+      const key = `${state.hero.x},${state.hero.y}`;
+      const landmark = landmarks[key];
+      if (landmark) {
+        els.placeName.textContent = landmark.name;
+      } else {
+        const type = tileMap[state.hero.y][state.hero.x];
+        els.placeName.textContent = type === "f" ? "深い森" : type === "C" ? "星影の洞窟" : "フィールド";
+      }
+    }
+
+    function move(direction) {
+      if (state.inBattle) {
+        setMessage("まものが立ちはだかっている。まず戦おう。");
+        return;
+      }
+      const delta = {
+        up: [0, -1],
+        right: [1, 0],
+        left: [-1, 0],
+        down: [0, 1]
+      }[direction];
+      const nx = state.hero.x + delta[0];
+      const ny = state.hero.y + delta[1];
+      if (!canEnter(nx, ny)) {
+        setMessage("その先には進めない。");
+        return;
+      }
+      state.hero.x = nx;
+      state.hero.y = ny;
+      const landmark = landmarks[`${nx},${ny}`];
+      if (landmark) setMessage(landmark.message);
+      else setMessage("道はまだ続いている。");
+      maybeEncounter();
+      render();
+    }
+
+    function canEnter(x, y) {
+      if (x < 0 || y < 0 || x >= SIZE || y >= SIZE) return false;
+      return !["m", "w"].includes(tileMap[y][x]);
+    }
+
+    function maybeEncounter() {
+      const tile = tileMap[state.hero.y][state.hero.x];
+      const chance = tile === "f" ? 0.28 : tile === "C" ? 0.42 : tile === "g" ? 0.12 : 0.03;
+      if (Math.random() < chance) startBattle();
+    }
+
+    function startBattle() {
+      const base = enemies[Math.floor(Math.random() * enemies.length)];
+      const bonus = state.hero.lv - 1;
+      state.enemy = {
+        ...base,
+        hp: base.hp + bonus * 5,
+        maxHp: base.hp + bonus * 5,
+        atk: base.atk + bonus,
+        exp: base.exp + bonus * 2,
+        gold: base.gold + bonus * 2
+      };
+      state.inBattle = true;
+      log(`${state.enemy.name}が あらわれた！`);
+      setMessage(`${state.enemy.name}が あらわれた！`);
+    }
+
+    function attack() {
+      if (!state.inBattle || !state.enemy) {
+        setMessage("今は戦う相手がいない。");
+        return;
+      }
+      const damage = roll(state.hero.atk - 2, state.hero.atk + 4);
+      state.enemy.hp -= damage;
+      log(`勇者の攻撃。${damage}ダメージ。`);
+      if (state.enemy.hp <= 0) return winBattle();
+      enemyTurn();
+      render();
+    }
+
+    function castSpell() {
+      if (!state.inBattle || !state.enemy) {
+        setMessage("今はじゅもんを使う相手がいない。");
+        return;
+      }
+      if (state.hero.mp < 3) {
+        setMessage("MPが足りない。");
+        return;
+      }
+      state.hero.mp -= 3;
+      const damage = roll(10 + state.hero.lv * 2, 16 + state.hero.lv * 3);
+      state.enemy.hp -= damage;
+      log(`火のじゅもん！ ${damage}ダメージ。`);
+      if (state.enemy.hp <= 0) return winBattle();
+      enemyTurn();
+      render();
+    }
+
+    function useHerb() {
+      if (state.hero.herbs <= 0) {
+        setMessage("やくそうを持っていない。");
+        return;
+      }
+      state.hero.herbs -= 1;
+      const heal = roll(14, 22);
+      state.hero.hp = Math.min(state.hero.maxHp, state.hero.hp + heal);
+      log(`やくそうでHPを${heal}回復した。`);
+      if (state.inBattle) enemyTurn();
+      render();
+    }
+
+    function runAway() {
+      if (!state.inBattle) {
+        setMessage("今は逃げる必要はない。");
+        return;
+      }
+      if (Math.random() < 0.62) {
+        log("うまく逃げきれた。");
+        setMessage("うまく逃げきれた。");
+        state.inBattle = false;
+        state.enemy = null;
+      } else {
+        log("逃げられない！");
+        enemyTurn();
+      }
+      render();
+    }
+
+    function enemyTurn() {
+      const damage = Math.max(1, roll(state.enemy.atk - 2, state.enemy.atk + 3) - Math.floor(state.hero.lv / 2));
+      state.hero.hp -= damage;
+      log(`${state.enemy.name}の攻撃。${damage}ダメージ。`);
+      if (state.hero.hp <= 0) {
+        state.hero.hp = Math.floor(state.hero.maxHp / 2);
+        state.hero.gold = Math.floor(state.hero.gold / 2);
+        state.hero.x = 5;
+        state.hero.y = 5;
+        state.inBattle = false;
+        state.enemy = null;
+        log("勇者は村で目を覚ました。所持金が半分になった。");
+        setMessage("勇者は村で目を覚ました。所持金が半分になった。");
+      }
+    }
+
+    function winBattle() {
+      const enemy = state.enemy;
+      state.inBattle = false;
+      state.enemy = null;
+      state.hero.exp += enemy.exp;
+      state.hero.gold += enemy.gold;
+      log(`${enemy.name}を倒した。${enemy.exp}EXPと${enemy.gold}Gを手に入れた。`);
+      setMessage(`${enemy.name}を倒した。`);
+      while (state.hero.exp >= state.hero.next) levelUp();
+      render();
+    }
+
+    function levelUp() {
+      const h = state.hero;
+      h.exp -= h.next;
+      h.lv += 1;
+      h.next = Math.floor(h.next * 1.55);
+      h.maxHp += 8;
+      h.maxMp += 4;
+      h.atk += 3;
+      h.hp = h.maxHp;
+      h.mp = h.maxMp;
+      log(`レベルが${h.lv}に上がった！`);
+    }
+
+    function talk() {
+      const key = `${state.hero.x},${state.hero.y}`;
+      if (key === "10,2") {
+        setMessage(state.hasShard ? "王様「星のかけらを持ち帰ったか。そなたこそ真の勇者だ！」" : "王様「星影の洞窟に星のかけらが眠る。森を抜けて南東へ向かうのだ。」");
+      } else if (key === "5,4") {
+        setMessage("村人「洞窟へ行くなら、森で経験を積むといいよ。」");
+      } else {
+        setMessage("あたりには誰もいない。");
+      }
+    }
+
+    function search() {
+      const key = `${state.hero.x},${state.hero.y}`;
+      if (key === "10,10" && !state.hasShard) {
+        state.hasShard = true;
+        state.hero.exp += 20;
+        log("星のかけらを見つけた！");
+        setMessage("洞窟の奥で星のかけらを見つけた！ 城へ戻ろう。");
+        while (state.hero.exp >= state.hero.next) levelUp();
+      } else if (Math.random() < 0.22) {
+        state.hero.herbs += 1;
+        setMessage("草むらでやくそうを見つけた。");
+      } else {
+        setMessage("特に何も見つからなかった。");
+      }
+      render();
+    }
+
+    function rest() {
+      if (`${state.hero.x},${state.hero.y}` !== "5,4") {
+        setMessage("宿屋は村にある。");
+        return;
+      }
+      const cost = 6;
+      if (state.hero.gold < cost) {
+        setMessage("宿代が足りない。");
+        return;
+      }
+      state.hero.gold -= cost;
+      state.hero.hp = state.hero.maxHp;
+      state.hero.mp = state.hero.maxMp;
+      setMessage("宿屋で休んだ。HPとMPが回復した。");
+      log("宿屋で休んだ。");
+      render();
+    }
+
+    function roll(min, max) {
+      return Math.floor(Math.random() * (max - min + 1)) + min;
+    }
+
+    function setMessage(text) {
+      els.message.textContent = text;
+    }
+
+    function log(text) {
+      state.logs.push(text);
+      renderLog();
+    }
+
+    restart();
+  </script>
 </body>
 </html>
